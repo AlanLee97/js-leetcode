@@ -11,4 +11,8 @@ let defangIPaddr = function(address = '') {
   }
   return res;
 };
-console.log(defangIPaddr('1.1.1.1'))
+
+let defangIPaddr2 = function(address = '') {
+  return address.replace(/\./g, '[.]');
+};
+console.log(defangIPaddr2('1.1.1.1'))
