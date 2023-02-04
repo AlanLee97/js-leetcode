@@ -9,8 +9,21 @@
 </head>
 
 <body>
+  <script>
+    function ListNode(val, next) {
+      this.val = (val === undefined ? 0 : val)
+      this.next = (next === undefined ? null : next)
+    }
+
+    const node4 = new ListNode(4, null)
+    const node3 = new ListNode(3, node4)
+    const node2 = new ListNode(2, node3)
+    const node1 = new ListNode(1, node2)
+    const list = new ListNode(0, node1)
+  </script>
   <!-- <script src="./01-删除链表中的节点.js"></script> -->
-  <script src="./02-删除链表的倒数第N个节点.js"></script>
+  <!-- <script src="./02-删除链表的倒数第N个节点.js"></script> -->
+  <script src="./03-反转链表.js"></script>
 </body>
 
 </html>
