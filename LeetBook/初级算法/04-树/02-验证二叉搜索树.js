@@ -13,41 +13,31 @@
  * @return {boolean}
  */
 
-// todo
 const isValidBST = function (root) {
-  if(root === null || root.left === null && root.right === null) return true;
-  
-
-  // debugger;
-  return calcValidBST(root, -Infinity, Infinity);
+  return handleValidBST(root, null)
 };
 
-function calcValidBST(root, min, max) {
-  // debugger
-  let flag = true;
-  if(root.left && root.right) {
-    flag = root.left.val < root.right.val && root.val < root.right.val && root.left.val < root.val;
-  } else if(root.left) {
-    flag = root.left.val < root.val;
-  } else if(root.right) {
-    flag = root.val < root.right.val;
-  } else if(min && max) {
-    flag = root.val > min && root.val < max;
-  }
-
-  if(!flag) return false;
-
-
+function handleValidBST(root, preRoot) {
+  if(root === null) return true
+  let flag = true
   if(root.left) {
-    flag = calcValidBST(root.left, min < root.val ? min : root.val, max > root.left.val ? max : root.left.val);
-    if(!flag) return false;
+    let left = root.left
+    if(root.val <= left.val) return false
+    if(root.val > left.val && preRoot && preRoot.val >= left.val) flag = false
+    if(left.left) flag = handleValidBST(left, root)
+    if(left.right) flag = handleValidBST(left, root)
   }
   if(root.right) {
-    flag = calcValidBST(root.right, min, max);
-    if(!flag) return false;
+    let right = root.right
+    if(root.val >= right.val) return false
+    if(root.val < right.val && preRoot && preRoot.val < right.val) {
+      return false
+    } else {
+      flag = true
+    }
+    if(right.right) flag = handleValidBST(right, root)
   }
-
-  return flag;
+  return flag
 }
 
 
@@ -55,10 +45,12 @@ const root = new TreeNode(2, new TreeNode(1), new TreeNode(3));
 const root2 = new TreeNode(5, new TreeNode(1, null, null), new TreeNode(4, new TreeNode(3), new TreeNode(6)));
 const root3 = new TreeNode(1, new TreeNode(1, null, null), null);
 const root4 = new TreeNode(5, new TreeNode(4, null, null), new TreeNode(6, new TreeNode(3), new TreeNode(7)));
+const root5 = new TreeNode(32, new TreeNode(26, new TreeNode(19, null, new TreeNode(27)), null), new TreeNode(47, null, new TreeNode(56)));
+const root6 = new TreeNode(3, new TreeNode(1, new TreeNode(0), new TreeNode(2)), new TreeNode(5, new TreeNode(4), new TreeNode(6)));
 
 // console.log('root', root);
-// console.log('root2', root2);
-console.log(isValidBST(root));
-console.log(isValidBST(root2));
-console.log(isValidBST(root3));
-console.log(isValidBST(root4));
+console.log('root6', root6);
+// console.log(isValidBST(root));
+// console.log(isValidBST(root2));
+// console.log(isValidBST(root3));
+console.log(isValidBST(root6));
